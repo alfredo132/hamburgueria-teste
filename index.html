@@ -3,383 +3,490 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Brasa Burger — Hambúrguer artesanal na brasa</title>
-<meta name="description" content="Hambúrgueres artesanais grelhados na brasa. Peça pelo WhatsApp.">
+<title>Bella Burguerr | Smash na chapa em São Gabriel, BH</title>
+<meta name="description" content="Hambúrguer smash na chapa no São Gabriel, Belo Horizonte. Peça pelo WhatsApp.">
+<meta name="theme-color" content="#131211">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 <style>
   :root {
-    --bg: #14100d;
-    --bg-2: #1d1814;
-    --card: #231d18;
-    --line: #3a3029;
-    --text: #f6efe7;
-    --muted: #b8a999;
-    --brasa: #ff6a1a;
-    --brasa-2: #ffb020;
-    --green: #25d366;
-    --radius: 18px;
+    --ink: #131211;
+    --ink-2: #1b1a18;
+    --ink-3: #262422;
+    --line: #34312d;
+    --paper: #f3eee6;
+    --muted: #a59d92;
+    --mustard: #ffc531;
+    --mustard-ink: #1d1600;
+    --display: "Big Shoulders Display", "Archivo", sans-serif;
+    --body: "Archivo", system-ui, sans-serif;
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
-    font-family: "Inter", system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
+  ::selection { background: var(--mustard); color: var(--mustard-ink); }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--ink); }
+  ::-webkit-scrollbar-thumb { background: var(--ink-3); border: 2px solid var(--ink); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--mustard); }
+  :focus-visible { outline: 2px solid var(--mustard); outline-offset: 3px; }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
-  .wrap { width: min(1160px, 100% - 32px); margin-inline: auto; }
-  h1, h2, h3 { font-family: "Bebas Neue", sans-serif; font-weight: 400; letter-spacing: .02em; line-height: 1; }
-
-  /* Header */
-  header {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(20, 16, 13, .85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line);
+  .wrap { width: min(1280px, 100% - 32px); margin-inline: auto; }
+  .display {
+    font-family: var(--display);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: .9;
+    letter-spacing: -.01em;
+    text-wrap: balance;
   }
-  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-  .logo { font-family: "Bebas Neue"; font-size: 30px; letter-spacing: .04em; }
-  .logo span { color: var(--brasa); }
-  .nav ul { display: flex; gap: 28px; list-style: none; font-weight: 500; color: var(--muted); }
-  .nav ul a:hover { color: var(--text); }
+
+  /* Buttons: one primary intent (WhatsApp), one secondary (menu) */
   .btn {
     display: inline-flex; align-items: center; gap: 10px;
-    padding: 14px 24px; border-radius: 999px;
-    font-weight: 700; font-size: 15px;
-    transition: transform .2s ease, box-shadow .2s ease, background .2s;
+    height: 56px; padding: 0 26px;
+    font-family: var(--display); font-weight: 800; font-size: 22px;
+    text-transform: uppercase; letter-spacing: .02em; white-space: nowrap;
+    transition: transform .18s var(--ease-out), background .18s, color .18s;
   }
-  .btn:hover { transform: translateY(-2px); }
-  .btn-wa { background: var(--green); color: #06260f; box-shadow: 0 8px 24px rgba(37, 211, 102, .25); }
-  .btn-ghost { border: 1px solid var(--line); color: var(--text); }
-  .btn-ghost:hover { border-color: var(--brasa); }
-  .btn svg { width: 20px; height: 20px; }
-  .nav .btn { padding: 10px 18px; font-size: 14px; }
+  .btn i { font-size: 24px; }
+  .btn:active { transform: translateY(1px) scale(.98); }
+  .btn-main { background: var(--mustard); color: var(--mustard-ink); }
+  .btn-main:hover { background: var(--paper); }
+  .btn-line { box-shadow: inset 0 0 0 2px var(--paper); }
+  .btn-line:hover { background: var(--paper); color: var(--ink); }
+
+  /* Nav */
+  .nav {
+    position: fixed; inset: 0 0 auto; z-index: 40;
+    transition: background .3s, box-shadow .3s;
+  }
+  .nav.solid { background: rgba(19, 18, 17, .92); backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
+  .nav .wrap { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 12px; font-family: var(--display); font-weight: 900; font-size: 30px; text-transform: uppercase; line-height: 1; }
+  .brand-mark {
+    width: 38px; height: 38px; display: grid; place-items: center;
+    background: var(--mustard); color: var(--mustard-ink);
+    font-size: 24px;
+  }
+  .nav-links { display: flex; gap: 32px; font-weight: 600; font-size: 15px; }
+  .nav-links a { color: var(--muted); transition: color .2s; }
+  .nav-links a:hover { color: var(--paper); }
+  .nav .btn { height: 44px; padding: 0 18px; font-size: 18px; }
+  .nav .btn i { font-size: 20px; }
 
   /* Hero */
   .hero {
-    position: relative; overflow: hidden;
-    padding: 96px 0 110px;
-    background:
-      radial-gradient(60% 70% at 85% 40%, rgba(255, 106, 26, .28), transparent 70%),
-      radial-gradient(40% 50% at 10% 90%, rgba(255, 176, 32, .12), transparent 70%);
+    position: relative;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: stretch;
   }
-  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
-  .tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 14px; border-radius: 999px;
-    background: rgba(255, 106, 26, .12); border: 1px solid rgba(255, 106, 26, .35);
-    color: var(--brasa-2); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  .hero-copy {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 48px 72px max(16px, calc((100vw - 1280px) / 2));
+    position: relative; z-index: 2;
   }
-  .hero h1 { font-size: clamp(64px, 9vw, 124px); margin: 22px 0 18px; }
-  .hero h1 em { font-style: normal; color: var(--brasa); }
-  .hero p { font-size: 19px; color: var(--muted); max-width: 470px; margin-bottom: 34px; }
+  .hero h1 { font-size: clamp(64px, 8.6vw, 132px); }
+  .hero h1 span { display: block; }
+  .hero h1 .hl { color: var(--mustard); }
+  .hero p { margin: 28px 0 36px; max-width: 30ch; font-size: 19px; color: var(--muted); }
   .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
-  .hero-stats { display: flex; gap: 36px; margin-top: 44px; }
-  .hero-stats strong { display: block; font-family: "Bebas Neue"; font-size: 38px; color: var(--text); line-height: 1; }
-  .hero-stats span { font-size: 13px; color: var(--muted); }
-  .hero-img { position: relative; aspect-ratio: 1; }
-  .hero-img img {
-    width: 100%; height: 100%; object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0 40px 100px rgba(255, 106, 26, .35);
+  .hero-photo { position: relative; overflow: hidden; }
+  .hero-photo img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: 50% 55%;
+    transform: scale(1.04);
+    animation: settle 1.6s var(--ease-out) both;
   }
-  .hero-badge {
-    position: absolute; left: -10px; bottom: 40px;
-    background: var(--card); border: 1px solid var(--line);
-    padding: 14px 18px; border-radius: 16px;
-    display: flex; gap: 12px; align-items: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,.4);
+  .hero-photo::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--ink) 0%, rgba(19,18,17,.35) 22%, transparent 45%),
+                linear-gradient(0deg, rgba(19,18,17,.7) 0%, transparent 30%);
   }
-  .hero-badge b { font-size: 22px; }
-  .hero-badge small { display: block; color: var(--muted); font-size: 12px; }
+  .sticker {
+    position: absolute; right: 7%; bottom: 12%; z-index: 2;
+    width: 150px; height: 150px; border-radius: 50%;
+    background: var(--mustard); color: var(--mustard-ink);
+    display: grid; place-items: center; text-align: center;
+    font-family: var(--display); font-weight: 900; text-transform: uppercase;
+    font-size: 26px; line-height: .9;
+    transform: rotate(-12deg);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .45);
+    animation: pop .9s .5s var(--ease-out) both;
+  }
+  .sticker small { display: block; font-size: 15px; letter-spacing: .04em; margin-top: 4px; }
 
-  /* Sections */
-  section { padding: 96px 0; }
-  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 44px; flex-wrap: wrap; }
-  .sec-head h2 { font-size: clamp(48px, 6vw, 72px); }
-  .sec-head p { color: var(--muted); max-width: 420px; }
+  .rise { animation: rise .9s var(--ease-out) both; }
+  .d1 { animation-delay: .08s; } .d2 { animation-delay: .16s; } .d3 { animation-delay: .26s; } .d4 { animation-delay: .36s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(28px); } }
+  @keyframes settle { from { transform: scale(1.14); filter: blur(6px); } }
+  @keyframes pop { from { opacity: 0; transform: rotate(-40deg) scale(.4); } }
+
+  /* Marquee (the only one on the page) */
+  .ticker { background: var(--mustard); color: var(--mustard-ink); overflow: hidden; border-block: 2px solid var(--ink); }
+  .ticker-track { display: flex; width: max-content; animation: slide 28s linear infinite; }
+  .ticker-track span {
+    display: inline-flex; align-items: center; gap: 28px; padding: 16px 14px;
+    font-family: var(--display); font-weight: 900; font-size: 34px; text-transform: uppercase; white-space: nowrap;
+  }
+  .ticker-track i { font-size: 26px; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  section { padding: 120px 0; }
 
   /* Menu */
-  #cardapio { background: var(--bg-2); }
-  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
-  .filters button {
-    font: inherit; font-weight: 600; font-size: 14px; cursor: pointer;
-    padding: 9px 18px; border-radius: 999px;
-    background: transparent; color: var(--muted); border: 1px solid var(--line);
-    transition: all .2s;
+  .menu-head { display: flex; flex-direction: column; gap: 28px; margin-bottom: 48px; }
+  .menu-head h2 { font-size: clamp(64px, 9vw, 140px); }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tabs button {
+    font: 800 18px/1 var(--display); text-transform: uppercase; letter-spacing: .03em;
+    height: 44px; padding: 0 20px; cursor: pointer;
+    background: transparent; color: var(--muted); border: 0;
+    box-shadow: inset 0 0 0 2px var(--line);
+    transition: color .2s, box-shadow .2s, background .2s;
   }
-  .filters button.on, .filters button:hover { background: var(--brasa); border-color: var(--brasa); color: #1a0d04; }
-  .menu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .item {
-    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-    overflow: hidden; display: flex; flex-direction: column;
-    transition: transform .25s ease, border-color .25s;
-  }
-  .item:hover { transform: translateY(-4px); border-color: rgba(255, 106, 26, .5); }
-  .item .ph { aspect-ratio: 4/3; overflow: hidden; background: linear-gradient(135deg, #3a2414, #1d1814); }
-  .item .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
-  .item:hover .ph img { transform: scale(1.06); }
-  .item .body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
-  .item h3 { font-size: 30px; margin-bottom: 6px; }
-  .item p { color: var(--muted); font-size: 14.5px; flex: 1; }
-  .item .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; }
-  .price { font-family: "Bebas Neue"; font-size: 30px; color: var(--brasa-2); }
-  .add {
-    font: inherit; font-weight: 700; font-size: 13px; cursor: pointer;
-    background: transparent; color: var(--text);
-    border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px;
-    transition: all .2s;
-  }
-  .add:hover { background: var(--green); border-color: var(--green); color: #06260f; }
-  .badge {
-    position: absolute; margin: 14px; padding: 4px 10px; border-radius: 999px;
-    background: var(--brasa); color: #1a0d04; font-size: 12px; font-weight: 700;
-  }
-  .item { position: relative; }
-  .hide { display: none; }
+  .tabs button:hover { color: var(--paper); box-shadow: inset 0 0 0 2px var(--paper); }
+  .tabs button[aria-selected="true"] { background: var(--paper); color: var(--ink); box-shadow: none; }
 
-  /* About */
-  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-  .about img { border-radius: var(--radius); aspect-ratio: 4/5; object-fit: cover; width: 100%; }
-  .about h2 { font-size: clamp(48px, 6vw, 72px); margin-bottom: 20px; }
-  .about p { color: var(--muted); margin-bottom: 16px; font-size: 17px; }
-  .feats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
-  .feat { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
-  .feat b { display: block; margin-bottom: 4px; }
-  .feat span { color: var(--muted); font-size: 14px; }
+  .menu-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: start; }
+  .feature { position: sticky; top: 96px; }
+  .feature-img { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--ink-2); }
+  .feature-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease-out), opacity .35s; }
+  .feature:hover .feature-img img { transform: scale(1.04); }
+  .feature-info { display: flex; justify-content: space-between; align-items: end; gap: 16px; padding-top: 20px; }
+  .feature-info h3 { font-size: 56px; }
+  .feature-info p { color: var(--muted); max-width: 40ch; margin-top: 8px; }
+  .feature-price { font-family: var(--display); font-weight: 900; font-size: 56px; color: var(--mustard); line-height: .9; }
 
-  /* Info */
-  #contato { background: var(--bg-2); }
-  .info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .info .box { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
-  .info h3 { font-size: 28px; margin-bottom: 12px; color: var(--brasa-2); }
-  .info p, .info li { color: var(--muted); }
-  .info ul { list-style: none; }
-  .info li { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed var(--line); }
-  .info li:last-child { border: 0; }
-
-  /* CTA */
-  .cta {
-    text-align: center;
-    background: linear-gradient(135deg, var(--brasa), #e8420c);
-    border-radius: 28px; padding: 64px 24px; color: #1a0d04;
+  .list { display: flex; flex-direction: column; }
+  .row {
+    display: grid; grid-template-columns: 96px 1fr auto; gap: 20px; align-items: center;
+    padding: 18px 0;
+    cursor: pointer;
+    position: relative;
   }
-  .cta h2 { font-size: clamp(48px, 7vw, 86px); margin-bottom: 12px; }
-  .cta p { font-size: 18px; margin-bottom: 28px; font-weight: 500; }
-  .cta .btn-wa { background: #14100d; color: var(--text); box-shadow: none; }
+  .row + .row { box-shadow: 0 -1px 0 var(--line); }
+  .row img { width: 96px; height: 96px; object-fit: cover; background: var(--ink-2); filter: saturate(.85); transition: filter .3s; }
+  .row h3 { font-family: var(--display); font-weight: 800; font-size: 30px; text-transform: uppercase; line-height: 1; transition: color .2s; }
+  .row p { color: var(--muted); font-size: 15px; margin-top: 6px; }
+  .row-side { display: flex; flex-direction: column; align-items: end; gap: 8px; }
+  .row-price { font-family: var(--display); font-weight: 800; font-size: 28px; line-height: 1; }
+  .row-order {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-weight: 700; font-size: 14px; color: var(--muted);
+    transition: color .2s;
+  }
+  .row:hover h3, .row.active h3 { color: var(--mustard); }
+  .row:hover img, .row.active img { filter: saturate(1.1); }
+  .row-order:hover { color: var(--mustard); }
+  .row[hidden] { display: none; }
+  .menu-note { color: var(--muted); font-size: 14px; margin-top: 24px; }
 
-  footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); font-size: 14px; }
+  /* How to order: full-width band, numbered because the order matters */
+  .how { background: var(--paper); color: var(--ink); }
+  .how h2 { font-size: clamp(56px, 7vw, 112px); max-width: 12ch; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 64px; }
+  .step { padding: 0 32px 0 0; }
+  .step + .step { padding-left: 32px; box-shadow: -2px 0 0 var(--ink); }
+  .step b { display: block; font-family: var(--display); font-weight: 900; font-size: 96px; line-height: .8; color: var(--ink); -webkit-text-stroke: 0; }
+  .step h3 { font-family: var(--display); font-weight: 800; font-size: 32px; text-transform: uppercase; margin: 18px 0 8px; }
+  .step p { color: #57524b; max-width: 32ch; }
+  .how .btn-main { margin-top: 56px; background: var(--ink); color: var(--paper); }
+  .how .btn-main:hover { background: var(--mustard); color: var(--mustard-ink); }
+
+  /* Location: map left, info right */
+  .where { display: grid; grid-template-columns: 1.3fr 1fr; gap: 0; background: var(--ink-2); }
+  .where iframe { width: 100%; height: 100%; min-height: 520px; border: 0; filter: grayscale(1) invert(.92) contrast(.9); }
+  .where-info { padding: 72px 56px; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+  .where-info h2 { font-size: clamp(56px, 6vw, 96px); }
+  .where-info address { font-style: normal; font-size: 20px; line-height: 1.5; }
+  .where-info address span { color: var(--muted); display: block; font-size: 17px; }
+  .where-links { display: flex; flex-direction: column; gap: 14px; }
+  .where-links a { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; width: fit-content; }
+  .where-links a i { font-size: 22px; color: var(--mustard); }
+  .where-links a:hover { color: var(--mustard); }
+
+  /* Closing */
+  .closing { text-align: left; padding: 140px 0 120px; }
+  .closing h2 { font-size: clamp(72px, 13vw, 220px); line-height: .82; }
+  .closing h2 span { color: var(--mustard); }
+  .closing .btn { margin-top: 40px; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 100px; color: var(--muted); font-size: 14px; }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
-  /* Floating WhatsApp */
+  /* Floating WhatsApp on mobile only */
   .fab {
-    position: fixed; right: 20px; bottom: 20px; z-index: 60;
-    width: 60px; height: 60px; border-radius: 50%;
-    background: var(--green); display: grid; place-items: center;
-    box-shadow: 0 10px 30px rgba(37, 211, 102, .45);
-    transition: transform .2s;
+    position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 50;
+    display: none; justify-content: center;
   }
-  .fab:hover { transform: scale(1.08); }
-  .fab svg { width: 30px; height: 30px; fill: #fff; }
+  .fab .btn { width: 100%; justify-content: center; box-shadow: 0 12px 30px rgba(0, 0, 0, .5); }
 
-  /* Toast */
-  .toast {
-    position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 120px);
-    background: var(--card); border: 1px solid var(--line); color: var(--text);
-    padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: 14px;
-    transition: transform .3s ease; z-index: 70;
-  }
-  .toast.show { transform: translate(-50%, 0); }
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity .9s var(--ease-out), transform .9s var(--ease-out); }
+  .reveal.in { opacity: 1; transform: none; }
 
-  @media (max-width: 900px) {
-    .hero-grid, .about { grid-template-columns: 1fr; }
-    .hero { padding: 56px 0 72px; }
-    .hero-img { max-width: 420px; margin: 0 auto; }
-    .menu, .info { grid-template-columns: 1fr 1fr; }
-    .nav ul { display: none; }
+  @media (max-width: 1024px) {
+    .menu-grid { grid-template-columns: 1fr; }
+    .feature { position: static; }
+    .feature-img { aspect-ratio: 4 / 3; }
   }
-  @media (max-width: 600px) {
-    .menu, .info, .feats { grid-template-columns: 1fr; }
-    section { padding: 64px 0; }
-    .hero-stats { gap: 24px; }
-    .nav .btn span { display: none; }
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; grid-template-rows: 52vh auto; min-height: auto; }
+    .hero-photo { order: -1; }
+    .hero-photo::after { background: linear-gradient(0deg, var(--ink) 0%, transparent 55%); }
+    .hero-copy { padding: 0 16px 56px; margin-top: -72px; }
+    .sticker { width: 104px; height: 104px; font-size: 19px; bottom: 96px; right: 16px; }
+    .sticker small { font-size: 12px; }
+    section { padding: 80px 0; }
+    .steps { grid-template-columns: 1fr; gap: 40px; }
+    .step, .step + .step { padding: 0; box-shadow: none; }
+    .where { grid-template-columns: 1fr; }
+    .where iframe { min-height: 320px; }
+    .where-info { padding: 48px 16px; }
+    .fab { display: flex; transform: translateY(140%); transition: transform .4s var(--ease-out); }
+    .fab.show { transform: none; }
+    .nav .btn { display: none; }
+  }
+  @media (max-width: 520px) {
+    .row { grid-template-columns: 72px 1fr; }
+    .row img { width: 72px; height: 72px; }
+    .row-side { grid-column: 2; flex-direction: row; justify-content: space-between; align-items: center; width: 100%; }
+    .feature-info { flex-direction: column; align-items: start; }
+    .feature-info h3, .feature-price { font-size: 44px; }
+    .hero-ctas .btn { flex: 1; justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap nav">
-    <a href="#" class="logo">BRASA<span>BURGER</span></a>
-    <ul>
-      <li><a href="#cardapio">Cardápio</a></li>
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#contato">Contato</a></li>
-    </ul>
-    <a class="btn btn-wa" href="#" data-wa="Olá! Quero fazer um pedido 🍔">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4z"/></svg>
-      <span>Pedir agora</span>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#topo" class="brand" aria-label="Bella Burguerr, início">
+      <span class="brand-mark" aria-hidden="true"><i class="ph-fill ph-hamburger"></i></span>
+      Bella Burguerr
     </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#cardapio">Cardápio</a>
+      <a href="#como-pedir">Como pedir</a>
+      <a href="#onde">Onde fica</a>
+    </nav>
+    <a class="btn btn-main" data-wa href="#"><i class="ph-bold ph-whatsapp-logo"></i>Pedir no WhatsApp</a>
   </div>
 </header>
 
-<main>
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="tag">🔥 Grelhado na brasa</span>
-        <h1>O burger que<br>deixa <em>saudade</em>.</h1>
-        <p>Blend de 160g, pão brioche selado na manteiga e queijo derretendo. Feito na hora, entregue quentinho na sua casa.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-wa" href="#" data-wa="Olá! Quero fazer um pedido 🍔">Pedir pelo WhatsApp</a>
-          <a class="btn btn-ghost" href="#cardapio">Ver cardápio</a>
-        </div>
-        <div class="hero-stats">
-          <div><strong>4.9★</strong><span>no iFood</span></div>
-          <div><strong>30min</strong><span>entrega média</span></div>
-          <div><strong>+12mil</strong><span>burgers vendidos</span></div>
-        </div>
-      </div>
-      <div class="hero-img">
-        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=900&q=80" alt="Hambúrguer artesanal com queijo">
-        <div class="hero-badge">
-          <b>🍔</b>
-          <div><strong>Brasa Clássico</strong><small>o mais pedido da casa</small></div>
-        </div>
+<main id="topo">
+  <section class="hero" style="padding:0">
+    <div class="hero-copy">
+      <h1 class="display">
+        <span class="rise d1">Smash</span>
+        <span class="rise d2">na chapa,</span>
+        <span class="rise d3 hl">quente na mão.</span>
+      </h1>
+      <p class="rise d4">Burger prensado na hora, queijo escorrendo e pão selado. Aqui no São Gabriel, direto pro seu WhatsApp.</p>
+      <div class="hero-ctas rise d4">
+        <a class="btn btn-main" data-wa href="#"><i class="ph-bold ph-whatsapp-logo"></i>Pedir no WhatsApp</a>
+        <a class="btn btn-line" href="#cardapio">Ver cardápio</a>
       </div>
     </div>
+    <div class="hero-photo">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1600&q=80" alt="Hambúrguer duplo com queijo derretido">
+      <div class="sticker" aria-hidden="true"><div>Feito<br>na hora<small>São Gabriel</small></div></div>
+    </div>
   </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Smash na chapa <i class="ph-fill ph-fire"></i> Queijo derretido <i class="ph-fill ph-fire"></i> Batata crocante <i class="ph-fill ph-fire"></i> São Gabriel, BH <i class="ph-fill ph-fire"></i></span>
+      <span>Smash na chapa <i class="ph-fill ph-fire"></i> Queijo derretido <i class="ph-fill ph-fire"></i> Batata crocante <i class="ph-fill ph-fire"></i> São Gabriel, BH <i class="ph-fill ph-fire"></i></span>
+    </div>
+  </div>
 
   <section id="cardapio">
     <div class="wrap">
-      <div class="sec-head">
-        <h2>Cardápio</h2>
-        <p>Todos os burgers acompanham batata rústica. Toque em “Pedir” e a gente já abre o WhatsApp pra você.</p>
-      </div>
-      <div class="filters">
-        <button class="on" data-f="all">Todos</button>
-        <button data-f="burger">Burgers</button>
-        <button data-f="side">Porções</button>
-        <button data-f="drink">Bebidas</button>
-      </div>
-      <div class="menu" id="menu"></div>
-    </div>
-  </section>
-
-  <section id="sobre">
-    <div class="wrap about">
-      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=900&q=80" alt="Burger sendo preparado">
-      <div>
-        <h2>Fogo, carne e capricho.</h2>
-        <p>A Brasa Burger nasceu de uma churrasqueira no quintal e da vontade de fazer o hambúrguer que a gente gostaria de comer.</p>
-        <p>Moemos nossa carne todo dia, assamos o pão na casa e grelhamos tudo na brasa de verdade. Sem atalho.</p>
-        <div class="feats">
-          <div class="feat"><b>🥩 Carne fresca</b><span>Blend próprio, moído diariamente</span></div>
-          <div class="feat"><b>🍞 Pão da casa</b><span>Brioche assado toda manhã</span></div>
-          <div class="feat"><b>🔥 Na brasa</b><span>Sabor defumado de verdade</span></div>
-          <div class="feat"><b>🛵 Entrega rápida</b><span>Chega quente em até 40min</span></div>
+      <div class="menu-head reveal">
+        <h2 class="display">Cardápio</h2>
+        <div class="tabs" role="tablist" aria-label="Categorias">
+          <button role="tab" aria-selected="true" data-cat="all">Tudo</button>
+          <button role="tab" aria-selected="false" data-cat="burger">Burgers</button>
+          <button role="tab" aria-selected="false" data-cat="side">Acompanhamentos</button>
+          <button role="tab" aria-selected="false" data-cat="drink">Bebidas</button>
         </div>
       </div>
+
+      <div class="menu-grid">
+        <article class="feature reveal" aria-live="polite">
+          <div class="feature-img"><img id="f-img" src="" alt=""></div>
+          <div class="feature-info">
+            <div>
+              <h3 class="display" id="f-name"></h3>
+              <p id="f-desc"></p>
+            </div>
+            <div class="feature-price" id="f-price"></div>
+          </div>
+        </article>
+        <div class="list reveal" id="list"></div>
+      </div>
+      <p class="menu-note">Itens e preços de exemplo. O cardápio oficial é confirmado no WhatsApp.</p>
     </div>
   </section>
 
-  <section id="contato">
+  <section class="how" id="como-pedir">
     <div class="wrap">
-      <div class="sec-head"><h2>Onde estamos</h2></div>
-      <div class="info">
-        <div class="box">
-          <h3>Endereço</h3>
-          <p>Rua Exemplo, 123 — Centro<br>São Paulo, SP</p>
+      <h2 class="display reveal">Pediu, chegou. Simples assim.</h2>
+      <div class="steps">
+        <div class="step reveal">
+          <b>1</b>
+          <h3>Escolhe o lanche</h3>
+          <p>Passa o olho no cardápio e toca em pedir no que bateu a vontade.</p>
         </div>
-        <div class="box">
-          <h3>Horários</h3>
-          <ul>
-            <li><span>Seg a Qui</span><span>18h – 23h</span></li>
-            <li><span>Sex e Sáb</span><span>18h – 00h</span></li>
-            <li><span>Domingo</span><span>18h – 22h</span></li>
-          </ul>
+        <div class="step reveal">
+          <b>2</b>
+          <h3>Manda no Zap</h3>
+          <p>A mensagem já vai pronta. É só mandar seu endereço junto.</p>
         </div>
-        <div class="box">
-          <h3>Contato</h3>
-          <p>WhatsApp: (11) 99999-9999<br>Instagram: @brasaburger</p>
+        <div class="step reveal">
+          <b>3</b>
+          <h3>Chega quentinho</h3>
+          <p>Saiu da chapa, foi pra sacola. Entrega na região ou retirada no balcão.</p>
         </div>
+      </div>
+      <a class="btn btn-main reveal" data-wa href="#"><i class="ph-bold ph-whatsapp-logo"></i>Pedir no WhatsApp</a>
+    </div>
+  </section>
+
+  <section class="where" id="onde" style="padding:0">
+    <iframe title="Mapa: Bella Burguerr, R. Anapurus, 250, São Gabriel, Belo Horizonte" loading="lazy"
+      src="https://maps.google.com/maps?q=R.%20Anapurus%2C%20250%20-%20S%C3%A3o%20Gabriel%2C%20Belo%20Horizonte%20-%20MG&z=16&output=embed"></iframe>
+    <div class="where-info reveal">
+      <h2 class="display">Onde fica</h2>
+      <address>
+        R. Anapurus, 250
+        <span>São Gabriel, Belo Horizonte, MG<br>CEP 31980-210</span>
+      </address>
+      <div class="where-links">
+        <a href="https://www.google.com/maps/search/?api=1&query=Bella+Burguerr+R.+Anapurus+250+Belo+Horizonte" target="_blank" rel="noopener"><i class="ph-bold ph-map-pin"></i>Abrir no Google Maps</a>
+        <a data-wa href="#"><i class="ph-bold ph-whatsapp-logo"></i>(31) 98459-7567</a>
       </div>
     </div>
   </section>
 
-  <section>
+  <section class="closing">
     <div class="wrap">
-      <div class="cta">
-        <h2>Bateu a fome?</h2>
-        <p>Peça agora pelo WhatsApp e receba em casa.</p>
-        <a class="btn btn-wa" href="#" data-wa="Olá! Quero fazer um pedido 🍔">Fazer meu pedido</a>
-      </div>
+      <h2 class="display reveal">Bateu a<br><span>larica?</span></h2>
+      <a class="btn btn-main reveal" data-wa href="#"><i class="ph-bold ph-whatsapp-logo"></i>Pedir no WhatsApp</a>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Brasa Burger — site teste</span>
-    <span>Feito com 🔥</span>
+    <span>Bella Burguerr, São Gabriel, BH</span>
+    <span>Site demonstrativo</span>
   </div>
 </footer>
 
-<a class="fab" href="#" data-wa="Olá! Quero fazer um pedido 🍔" aria-label="Pedir pelo WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4z"/></svg>
-</a>
-
+<div class="fab"><a class="btn btn-main" data-wa href="#"><i class="ph-bold ph-whatsapp-logo"></i>Pedir no WhatsApp</a></div>
 
 <script>
-  // Troque pelo número real da hamburgueria (DDI + DDD + número, só dígitos)
-  const WHATSAPP = "5511999999999";
+  const WHATSAPP = "5531984597567";
+  const waLink = msg => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  const brl = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const IMG = (id, w = 900) => `https://images.unsplash.com/photo-${id}?w=${w}&q=80`;
 
-  const IMG = id => `https://images.unsplash.com/photo-${id}?w=700&q=75`;
   const items = [
-    { cat: "burger", name: "Brasa Clássico", desc: "Blend 160g, cheddar, alface, tomate, cebola roxa e molho da casa.", price: 32.9, img: IMG("1568901346375-23c9450c58cd"), tag: "Mais pedido" },
-    { cat: "burger", name: "Smash Duplo", desc: "Dois smash de 90g, duplo queijo americano, picles e cebola grelhada.", price: 36.9, img: IMG("1553979459-d2229ba7433b") },
-    { cat: "burger", name: "Bacon Brasa", desc: "Blend 160g, bacon crocante, cheddar cremoso e cebola caramelizada.", price: 38.9, img: IMG("1594212699903-ec8a3eca50f5"), tag: "Novo" },
-    { cat: "burger", name: "Chicken Crispy", desc: "Frango empanado crocante, maionese de ervas, alface e tomate.", price: 31.9, img: IMG("1606755962773-d324e0a13086") },
-    { cat: "side", name: "Batata Rústica", desc: "Batatas com casca, alecrim e sal grosso. Porção para dois.", price: 18.9, img: IMG("1576107232684-1279f390859f") },
-    { cat: "side", name: "Onion Rings", desc: "Anéis de cebola empanados, servidos com molho barbecue.", price: 21.9, img: IMG("1639024471283-03518883512d") },
-    { cat: "drink", name: "Milkshake", desc: "Chocolate, morango ou ovomaltine. 400ml.", price: 19.9, img: IMG("1572490122747-3968b75cc699") },
-    { cat: "drink", name: "Refrigerante lata", desc: "Coca-Cola, Guaraná ou Sprite. 350ml.", price: 7.0, img: IMG("1622483767028-3f66f32aef97") },
-    { cat: "burger", name: "Veggie Brasa", desc: "Burger de grão-de-bico, queijo prato, rúcula e maionese verde.", price: 33.9, img: IMG("1520072959219-c595dc870360") },
+    { cat: "burger", name: "Smash Duplo", desc: "Dois smash de 80g, cheddar duplo, cebola na chapa e molho da casa.", price: 29.9, img: "1553979459-d2229ba7433b" },
+    { cat: "burger", name: "Bella Clássico", desc: "Blend de 150g, queijo prato, alface, tomate e maionese temperada.", price: 26.9, img: "1568901346375-23c9450c58cd" },
+    { cat: "burger", name: "Bacon Bruto", desc: "Blend de 150g, bacon crocante, cheddar cremoso e cebola caramelizada.", price: 32.9, img: "1594212699903-ec8a3eca50f5" },
+    { cat: "burger", name: "Frango Crocante", desc: "Sobrecoxa empanada, maionese verde, alface e tomate.", price: 27.9, img: "1606755962773-d324e0a13086" },
+    { cat: "burger", name: "Veggie", desc: "Burger de grão-de-bico, queijo, rúcula e maionese de ervas.", price: 27.9, img: "1520072959219-c595dc870360" },
+    { cat: "side", name: "Batata Rústica", desc: "Com casca, alecrim e sal grosso. Serve dois.", price: 16.9, img: "1576107232684-1279f390859f" },
+    { cat: "side", name: "Onion Rings", desc: "Anéis de cebola empanados com barbecue.", price: 19.9, img: "1639024471283-03518883512d" },
+    { cat: "drink", name: "Milkshake", desc: "Chocolate, morango ou ovomaltine. 400ml.", price: 17.9, img: "1572490122747-3968b75cc699" },
+    { cat: "drink", name: "Refri Lata", desc: "Coca-Cola, Guaraná ou Sprite. 350ml.", price: 6.5, img: "1622483767028-3f66f32aef97" },
   ];
 
-  const brl = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-  const waLink = msg => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  const list = document.getElementById("list");
+  const f = { img: document.getElementById("f-img"), name: document.getElementById("f-name"), desc: document.getElementById("f-desc"), price: document.getElementById("f-price") };
 
-  const menu = document.getElementById("menu");
-  menu.innerHTML = items.map(i => `
-    <article class="item" data-cat="${i.cat}">
-      ${i.tag ? `<span class="badge">${i.tag}</span>` : ""}
-      <div class="ph"><img loading="lazy" src="${i.img}" alt="${i.name}" onerror="this.remove()"></div>
-      <div class="body">
-        <h3>${i.name}</h3>
-        <p>${i.desc}</p>
-        <div class="foot">
-          <span class="price">${brl(i.price)}</span>
-          <a class="add" href="${waLink(`Olá! Quero pedir 1x ${i.name} (${brl(i.price)}) 🍔`)}" target="_blank" rel="noopener">Pedir</a>
-        </div>
+  list.innerHTML = items.map((it, i) => `
+    <div class="row" data-i="${i}" data-cat="${it.cat}" tabindex="0">
+      <img loading="lazy" src="${IMG(it.img, 300)}" alt="">
+      <div><h3>${it.name}</h3><p>${it.desc}</p></div>
+      <div class="row-side">
+        <span class="row-price">${brl(it.price)}</span>
+        <a class="row-order" href="${waLink(`Oi! Quero pedir 1x ${it.name} (${brl(it.price)}).`)}" target="_blank" rel="noopener">Pedir <i class="ph-bold ph-arrow-up-right"></i></a>
       </div>
-    </article>`).join("");
+    </div>`).join("");
+
+  const rows = [...list.querySelectorAll(".row")];
+  function feature(i) {
+    const it = items[i];
+    rows.forEach(r => r.classList.toggle("active", +r.dataset.i === i));
+    if (f.name.textContent === it.name) return;
+    f.img.style.opacity = 0;
+    const next = new Image();
+    next.onload = () => { f.img.src = next.src; f.img.alt = it.name; f.img.style.opacity = 1; };
+    next.src = IMG(it.img, 1100);
+    f.name.textContent = it.name;
+    f.desc.textContent = it.desc;
+    f.price.textContent = brl(it.price);
+  }
+  rows.forEach(r => {
+    r.addEventListener("mouseenter", () => feature(+r.dataset.i));
+    r.addEventListener("focus", () => feature(+r.dataset.i));
+    r.addEventListener("click", e => { if (!e.target.closest("a")) feature(+r.dataset.i); });
+  });
+  feature(0);
+
+  document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
+    const cat = b.dataset.cat;
+    rows.forEach(r => r.hidden = cat !== "all" && r.dataset.cat !== cat);
+    const first = rows.find(r => !r.hidden);
+    if (first) feature(+first.dataset.i);
+  }));
 
   document.querySelectorAll("[data-wa]").forEach(a => {
-    a.href = waLink(a.dataset.wa);
+    a.href = waLink("Oi! Vim pelo site e quero fazer um pedido.");
     a.target = "_blank";
     a.rel = "noopener";
   });
 
-  document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
-    document.querySelectorAll(".filters button").forEach(x => x.classList.toggle("on", x === b));
-    menu.querySelectorAll(".item").forEach(el => el.classList.toggle("hide", b.dataset.f !== "all" && el.dataset.cat !== b.dataset.f));
-  }));
+  // Nav gets a solid background once the hero scrolls away
+  const nav = document.getElementById("nav");
+  new IntersectionObserver(([e]) => nav.classList.toggle("solid", !e.isIntersecting), { rootMargin: "-80px 0px 0px 0px" })
+    .observe(document.querySelector(".hero-copy h1"));
+
+  // Mobile sticky order button appears only after the hero buttons leave the screen
+  const fab = document.querySelector(".fab");
+  new IntersectionObserver(([e]) => fab.classList.toggle("show", !e.isIntersecting && e.boundingClientRect.top < 0))
+    .observe(document.querySelector(".hero-ctas"));
+
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { threshold: .15 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 </script>
 </body>
 </html>
