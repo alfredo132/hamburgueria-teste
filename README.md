@@ -1,3 +1,3 @@
 # Hamburgueria Teste
 
-Site teste de uma hamburgueria.
+Site teste da Chapa Brava, hamburgueria fictícia.
