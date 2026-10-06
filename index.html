@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brasa Burger — Hambúrguer artesanal na brasa</title>
+<meta name="description" content="Hambúrgueres artesanais grelhados na brasa. Peça pelo WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14100d;
+    --bg-2: #1d1814;
+    --card: #231d18;
+    --line: #3a3029;
+    --text: #f6efe7;
+    --muted: #b8a999;
+    --brasa: #ff6a1a;
+    --brasa-2: #ffb020;
+    --green: #25d366;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1160px, 100% - 32px); margin-inline: auto; }
+  h1, h2, h3 { font-family: "Bebas Neue", sans-serif; font-weight: 400; letter-spacing: .02em; line-height: 1; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(20, 16, 13, .85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo { font-family: "Bebas Neue"; font-size: 30px; letter-spacing: .04em; }
+  .logo span { color: var(--brasa); }
+  .nav ul { display: flex; gap: 28px; list-style: none; font-weight: 500; color: var(--muted); }
+  .nav ul a:hover { color: var(--text); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px; border-radius: 999px;
+    font-weight: 700; font-size: 15px;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-wa { background: var(--green); color: #06260f; box-shadow: 0 8px 24px rgba(37, 211, 102, .25); }
+  .btn-ghost { border: 1px solid var(--line); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--brasa); }
+  .btn svg { width: 20px; height: 20px; }
+  .nav .btn { padding: 10px 18px; font-size: 14px; }
+
+  /* Hero */
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 96px 0 110px;
+    background:
+      radial-gradient(60% 70% at 85% 40%, rgba(255, 106, 26, .28), transparent 70%),
+      radial-gradient(40% 50% at 10% 90%, rgba(255, 176, 32, .12), transparent 70%);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(255, 106, 26, .12); border: 1px solid rgba(255, 106, 26, .35);
+    color: var(--brasa-2); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  }
+  .hero h1 { font-size: clamp(64px, 9vw, 124px); margin: 22px 0 18px; }
+  .hero h1 em { font-style: normal; color: var(--brasa); }
+  .hero p { font-size: 19px; color: var(--muted); max-width: 470px; margin-bottom: 34px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-stats { display: flex; gap: 36px; margin-top: 44px; }
+  .hero-stats strong { display: block; font-family: "Bebas Neue"; font-size: 38px; color: var(--text); line-height: 1; }
+  .hero-stats span { font-size: 13px; color: var(--muted); }
+  .hero-img { position: relative; aspect-ratio: 1; }
+  .hero-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 40px 100px rgba(255, 106, 26, .35);
+  }
+  .hero-badge {
+    position: absolute; left: -10px; bottom: 40px;
+    background: var(--card); border: 1px solid var(--line);
+    padding: 14px 18px; border-radius: 16px;
+    display: flex; gap: 12px; align-items: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,.4);
+  }
+  .hero-badge b { font-size: 22px; }
+  .hero-badge small { display: block; color: var(--muted); font-size: 12px; }
+
+  /* Sections */
+  section { padding: 96px 0; }
+  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 44px; flex-wrap: wrap; }
+  .sec-head h2 { font-size: clamp(48px, 6vw, 72px); }
+  .sec-head p { color: var(--muted); max-width: 420px; }
+
+  /* Menu */
+  #cardapio { background: var(--bg-2); }
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+  .filters button {
+    font: inherit; font-weight: 600; font-size: 14px; cursor: pointer;
+    padding: 9px 18px; border-radius: 999px;
+    background: transparent; color: var(--muted); border: 1px solid var(--line);
+    transition: all .2s;
+  }
+  .filters button.on, .filters button:hover { background: var(--brasa); border-color: var(--brasa); color: #1a0d04; }
+  .menu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .item {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform .25s ease, border-color .25s;
+  }
+  .item:hover { transform: translateY(-4px); border-color: rgba(255, 106, 26, .5); }
+  .item .ph { aspect-ratio: 4/3; overflow: hidden; background: linear-gradient(135deg, #3a2414, #1d1814); }
+  .item .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  .item:hover .ph img { transform: scale(1.06); }
+  .item .body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .item h3 { font-size: 30px; margin-bottom: 6px; }
+  .item p { color: var(--muted); font-size: 14.5px; flex: 1; }
+  .item .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; }
+  .price { font-family: "Bebas Neue"; font-size: 30px; color: var(--brasa-2); }
+  .add {
+    font: inherit; font-weight: 700; font-size: 13px; cursor: pointer;
+    background: transparent; color: var(--text);
+    border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px;
+    transition: all .2s;
+  }
+  .add:hover { background: var(--green); border-color: var(--green); color: #06260f; }
+  .badge {
+    position: absolute; margin: 14px; padding: 4px 10px; border-radius: 999px;
+    background: var(--brasa); color: #1a0d04; font-size: 12px; font-weight: 700;
+  }
+  .item { position: relative; }
+  .hide { display: none; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .about img { border-radius: var(--radius); aspect-ratio: 4/5; object-fit: cover; width: 100%; }
+  .about h2 { font-size: clamp(48px, 6vw, 72px); margin-bottom: 20px; }
+  .about p { color: var(--muted); margin-bottom: 16px; font-size: 17px; }
+  .feats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+  .feat { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+  .feat b { display: block; margin-bottom: 4px; }
+  .feat span { color: var(--muted); font-size: 14px; }
+
+  /* Info */
+  #contato { background: var(--bg-2); }
+  .info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .info .box { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+  .info h3 { font-size: 28px; margin-bottom: 12px; color: var(--brasa-2); }
+  .info p, .info li { color: var(--muted); }
+  .info ul { list-style: none; }
+  .info li { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+  .info li:last-child { border: 0; }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+    background: linear-gradient(135deg, var(--brasa), #e8420c);
+    border-radius: 28px; padding: 64px 24px; color: #1a0d04;
+  }
+  .cta h2 { font-size: clamp(48px, 7vw, 86px); margin-bottom: 12px; }
+  .cta p { font-size: 18px; margin-bottom: 28px; font-weight: 500; }
+  .cta .btn-wa { background: #14100d; color: var(--text); box-shadow: none; }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  /* Floating WhatsApp */
+  .fab {
+    position: fixed; right: 20px; bottom: 20px; z-index: 60;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--green); display: grid; place-items: center;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, .45);
+    transition: transform .2s;
+  }
+  .fab:hover { transform: scale(1.08); }
+  .fab svg { width: 30px; height: 30px; fill: #fff; }
+
+  /* Toast */
+  .toast {
+    position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 120px);
+    background: var(--card); border: 1px solid var(--line); color: var(--text);
+    padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: 14px;
+    transition: transform .3s ease; z-index: 70;
+  }
+  .toast.show { transform: translate(-50%, 0); }
+
+  @media (max-width: 900px) {
+    .hero-grid, .about { grid-template-columns: 1fr; }
+    .hero { padding: 56px 0 72px; }
+    .hero-img { max-width: 420px; margin: 0 auto; }
+    .menu, .info { grid-template-columns: 1fr 1fr; }
+    .nav ul { display: none; }
+  }
+  @media (max-width: 600px) {
+    .menu, .info, .feats { grid-template-columns: 1fr; }
+    section { padding: 64px 0; }
+    .hero-stats { gap: 24px; }
+    .nav .btn span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">BRASA<span>BURGER</span></a>
+    <ul>
+      <li><a href="#cardapio">Cardápio</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a class="btn btn-wa" href="#" data-wa="Olá! Quero fazer um pedido 🍔">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4z"/></svg>
+      <span>Pedir agora</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="tag">🔥 Grelhado na brasa</span>
+        <h1>O burger que<br>deixa <em>saudade</em>.</h1>
+        <p>Blend de 160g, pão brioche selado na manteiga e queijo derretendo. Feito na hora, entregue quentinho na sua casa.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-wa" href="#" data-wa="Olá! Quero fazer um pedido 🍔">Pedir pelo WhatsApp</a>
+          <a class="btn btn-ghost" href="#cardapio">Ver cardápio</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>4.9★</strong><span>no iFood</span></div>
+          <div><strong>30min</strong><span>entrega média</span></div>
+          <div><strong>+12mil</strong><span>burgers vendidos</span></div>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=900&q=80" alt="Hambúrguer artesanal com queijo">
+        <div class="hero-badge">
+          <b>🍔</b>
+          <div><strong>Brasa Clássico</strong><small>o mais pedido da casa</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cardapio">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Cardápio</h2>
+        <p>Todos os burgers acompanham batata rústica. Toque em “Pedir” e a gente já abre o WhatsApp pra você.</p>
+      </div>
+      <div class="filters">
+        <button class="on" data-f="all">Todos</button>
+        <button data-f="burger">Burgers</button>
+        <button data-f="side">Porções</button>
+        <button data-f="drink">Bebidas</button>
+      </div>
+      <div class="menu" id="menu"></div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="wrap about">
+      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=900&q=80" alt="Burger sendo preparado">
+      <div>
+        <h2>Fogo, carne e capricho.</h2>
+        <p>A Brasa Burger nasceu de uma churrasqueira no quintal e da vontade de fazer o hambúrguer que a gente gostaria de comer.</p>
+        <p>Moemos nossa carne todo dia, assamos o pão na casa e grelhamos tudo na brasa de verdade. Sem atalho.</p>
+        <div class="feats">
+          <div class="feat"><b>🥩 Carne fresca</b><span>Blend próprio, moído diariamente</span></div>
+          <div class="feat"><b>🍞 Pão da casa</b><span>Brioche assado toda manhã</span></div>
+          <div class="feat"><b>🔥 Na brasa</b><span>Sabor defumado de verdade</span></div>
+          <div class="feat"><b>🛵 Entrega rápida</b><span>Chega quente em até 40min</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="wrap">
+      <div class="sec-head"><h2>Onde estamos</h2></div>
+      <div class="info">
+        <div class="box">
+          <h3>Endereço</h3>
+          <p>Rua Exemplo, 123 — Centro<br>São Paulo, SP</p>
+        </div>
+        <div class="box">
+          <h3>Horários</h3>
+          <ul>
+            <li><span>Seg a Qui</span><span>18h – 23h</span></li>
+            <li><span>Sex e Sáb</span><span>18h – 00h</span></li>
+            <li><span>Domingo</span><span>18h – 22h</span></li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Contato</h3>
+          <p>WhatsApp: (11) 99999-9999<br>Instagram: @brasaburger</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta">
+        <h2>Bateu a fome?</h2>
+        <p>Peça agora pelo WhatsApp e receba em casa.</p>
+        <a class="btn btn-wa" href="#" data-wa="Olá! Quero fazer um pedido 🍔">Fazer meu pedido</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Brasa Burger — site teste</span>
+    <span>Feito com 🔥</span>
+  </div>
+</footer>
+
+<a class="fab" href="#" data-wa="Olá! Quero fazer um pedido 🍔" aria-label="Pedir pelo WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4z"/></svg>
+</a>
+
+
+<script>
+  // Troque pelo número real da hamburgueria (DDI + DDD + número, só dígitos)
+  const WHATSAPP = "5511999999999";
+
+  const IMG = id => `https://images.unsplash.com/photo-${id}?w=700&q=75`;
+  const items = [
+    { cat: "burger", name: "Brasa Clássico", desc: "Blend 160g, cheddar, alface, tomate, cebola roxa e molho da casa.", price: 32.9, img: IMG("1568901346375-23c9450c58cd"), tag: "Mais pedido" },
+    { cat: "burger", name: "Smash Duplo", desc: "Dois smash de 90g, duplo queijo americano, picles e cebola grelhada.", price: 36.9, img: IMG("1553979459-d2229ba7433b") },
+    { cat: "burger", name: "Bacon Brasa", desc: "Blend 160g, bacon crocante, cheddar cremoso e cebola caramelizada.", price: 38.9, img: IMG("1594212699903-ec8a3eca50f5"), tag: "Novo" },
+    { cat: "burger", name: "Chicken Crispy", desc: "Frango empanado crocante, maionese de ervas, alface e tomate.", price: 31.9, img: IMG("1606755962773-d324e0a13086") },
+    { cat: "side", name: "Batata Rústica", desc: "Batatas com casca, alecrim e sal grosso. Porção para dois.", price: 18.9, img: IMG("1576107232684-1279f390859f") },
+    { cat: "side", name: "Onion Rings", desc: "Anéis de cebola empanados, servidos com molho barbecue.", price: 21.9, img: IMG("1639024471283-03518883512d") },
+    { cat: "drink", name: "Milkshake", desc: "Chocolate, morango ou ovomaltine. 400ml.", price: 19.9, img: IMG("1572490122747-3968b75cc699") },
+    { cat: "drink", name: "Refrigerante lata", desc: "Coca-Cola, Guaraná ou Sprite. 350ml.", price: 7.0, img: IMG("1622483767028-3f66f32aef97") },
+    { cat: "burger", name: "Veggie Brasa", desc: "Burger de grão-de-bico, queijo prato, rúcula e maionese verde.", price: 33.9, img: IMG("1520072959219-c595dc870360") },
+  ];
+
+  const brl = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const waLink = msg => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+
+  const menu = document.getElementById("menu");
+  menu.innerHTML = items.map(i => `
+    <article class="item" data-cat="${i.cat}">
+      ${i.tag ? `<span class="badge">${i.tag}</span>` : ""}
+      <div class="ph"><img loading="lazy" src="${i.img}" alt="${i.name}" onerror="this.remove()"></div>
+      <div class="body">
+        <h3>${i.name}</h3>
+        <p>${i.desc}</p>
+        <div class="foot">
+          <span class="price">${brl(i.price)}</span>
+          <a class="add" href="${waLink(`Olá! Quero pedir 1x ${i.name} (${brl(i.price)}) 🍔`)}" target="_blank" rel="noopener">Pedir</a>
+        </div>
+      </div>
+    </article>`).join("");
+
+  document.querySelectorAll("[data-wa]").forEach(a => {
+    a.href = waLink(a.dataset.wa);
+    a.target = "_blank";
+    a.rel = "noopener";
+  });
+
+  document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".filters button").forEach(x => x.classList.toggle("on", x === b));
+    menu.querySelectorAll(".item").forEach(el => el.classList.toggle("hide", b.dataset.f !== "all" && el.dataset.cat !== b.dataset.f));
+  }));
+</script>
+</body>
+</html>
